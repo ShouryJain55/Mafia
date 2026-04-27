@@ -2,7 +2,7 @@ import { supabase, clientId } from './supabase';
 
 export const createRoom = async (username) => {
   const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
-  
+
   // Create room
   const { data: room, error: roomError } = await supabase
     .from('rooms')
@@ -60,7 +60,8 @@ export const joinRoom = async (roomId, username) => {
 
   if (playerError) return { error: playerError.message };
 
-  return { success: true, room };
+  const fullRoom = await fetchRoomData(roomId);
+  return { success: true, room: fullRoom };
 };
 
 export const fetchRoomData = async (roomId) => {
@@ -69,7 +70,7 @@ export const fetchRoomData = async (roomId) => {
     .select('*')
     .eq('id', roomId)
     .single();
-    
+
   const { data: players } = await supabase
     .from('players')
     .select('*')
@@ -127,7 +128,7 @@ export const startGame = async (roomId, settings, players, godId) => {
   }
 
   // Assign roles in DB
-  const updatePromises = activePlayers.map((player, index) => 
+  const updatePromises = activePlayers.map((player, index) =>
     supabase.from('players').update({ role: roles[index] }).eq('id', player.id)
   );
 
