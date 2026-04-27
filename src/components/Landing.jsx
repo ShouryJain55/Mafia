@@ -7,17 +7,21 @@ const Landing = ({ onJoin }) => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleCreateRoom = () => {
+  const handleCreateRoom = async () => {
     if (!username.trim()) {
       setError('Please enter a username');
       return;
     }
     setError('');
     setIsLoading(true);
-    onJoin('create', username, null);
+    const res = await onJoin('create', username, null);
+    if (res?.error) {
+      setError(res.error);
+      setIsLoading(false);
+    }
   };
 
-  const handleJoinRoom = () => {
+  const handleJoinRoom = async () => {
     if (!username.trim()) {
       setError('Please enter a username');
       return;
@@ -28,7 +32,11 @@ const Landing = ({ onJoin }) => {
     }
     setError('');
     setIsLoading(true);
-    onJoin('join', username, roomId.toUpperCase());
+    const res = await onJoin('join', username, roomId.toUpperCase());
+    if (res?.error) {
+      setError(res.error);
+      setIsLoading(false);
+    }
   };
 
   return (
