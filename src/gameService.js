@@ -17,7 +17,7 @@ export const createRoom = async (username) => {
   // Join player
   const { data: player, error: playerError } = await supabase
     .from('players')
-    .insert([
+    .upsert([
       { id: clientId, room_id: roomId, username: username }
     ])
     .select()
