@@ -60,8 +60,9 @@ function App() {
     setCurrentUser(username);
     setError(null);
     
+    let response;
     if (action === 'create') {
-      const response = await createRoom(username);
+      response = await createRoom(username);
       if (response.error) {
         setError(response.error);
       } else {
@@ -69,7 +70,7 @@ function App() {
         setAppState('lobby');
       }
     } else if (action === 'join') {
-      const response = await joinRoom(roomId, username);
+      response = await joinRoom(roomId, username);
       if (response.error) {
         setError(response.error);
       } else {
@@ -77,6 +78,7 @@ function App() {
         setAppState(response.room.status === 'playing' ? 'game' : 'lobby');
       }
     }
+    return response;
   };
 
   return (
