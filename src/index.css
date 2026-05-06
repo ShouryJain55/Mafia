@@ -314,6 +314,9 @@ button.secondary:hover {
 .role-Villager { color: var(--success); text-shadow: 0 0 20px rgba(76, 209, 55, 0.4); }
 .role-Doctor { color: #3498db; text-shadow: 0 0 20px rgba(52, 152, 219, 0.4); }
 .role-Detective { color: #9b59b6; text-shadow: 0 0 20px rgba(155, 89, 182, 0.4); }
+.role-Joker { color: #c56cf0; text-shadow: 0 0 20px rgba(197, 108, 240, 0.4); }
+.role-Diva { color: #ff9ff3; text-shadow: 0 0 20px rgba(255, 159, 243, 0.4); }
+.role-Don { color: #c23616; text-shadow: 0 0 20px rgba(194, 54, 22, 0.4); }
 .role-God { color: var(--god-color); text-shadow: 0 0 20px rgba(241, 196, 15, 0.4); }
 
 .role-description {
@@ -337,4 +340,3 @@ button.secondary:hover {
   border-bottom: 1px solid rgba(255,255,255,0.1);
   text-align: left;
 }
-
