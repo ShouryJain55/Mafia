@@ -18,6 +18,18 @@ const roleDetails = {
     desc: 'Investigate one person each night to discover if they are Mafia.',
     icon: '🕵️'
   },
+  Joker: {
+    desc: 'Your goal is to get yourself voted out during the day.',
+    icon: '🤡'
+  },
+  Diva: {
+    desc: 'You are a high-profile citizen. If you are eliminated, everyone will know your role.',
+    icon: '✨'
+  },
+  Don: {
+    desc: 'You are the head of the Mafia. Your identity cannot be discovered by the Detective.',
+    icon: '🕴️'
+  },
   God: {
     desc: 'You are the moderator. Guide the town through the day and night phases.',
     icon: '👁️'
