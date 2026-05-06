@@ -7,7 +7,7 @@ export const createRoom = async (username) => {
   const { data: room, error: roomError } = await supabase
     .from('rooms')
     .insert([
-      { id: roomId, host_id: clientId, settings: { mafias: 1, villagers: 3, doctors: 0, detectives: 0 }, status: 'lobby' }
+      { id: roomId, host_id: clientId, settings: { mafias: 1, villagers: 3, doctors: 0, detectives: 0, jokers: 0, divas: 0, dons: 0 }, status: 'lobby' }
     ])
     .select()
     .single();
@@ -112,14 +112,17 @@ export const assignGod = async (roomId, targetId) => {
 };
 
 export const startGame = async (roomId, settings, players, godId) => {
-  const { mafias, villagers, doctors, detectives } = settings;
+  const { mafias, villagers, doctors, detectives, jokers = 0, divas = 0, dons = 0 } = settings;
   const activePlayers = players.filter(p => p.id !== godId);
 
   const roles = [
     ...Array(mafias).fill('Mafia'),
     ...Array(villagers).fill('Villager'),
     ...Array(doctors).fill('Doctor'),
-    ...Array(detectives).fill('Detective')
+    ...Array(detectives).fill('Detective'),
+    ...Array(jokers).fill('Joker'),
+    ...Array(divas).fill('Diva'),
+    ...Array(dons).fill('Don')
   ];
 
   for (let i = roles.length - 1; i > 0; i--) {
