@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Shield, Search, AlertTriangle } from 'lucide-react';
+import { Users, Shield, Search, AlertTriangle, Smile, Sparkles, Briefcase } from 'lucide-react';
 import { clientId } from '../supabase';
 import { updateSettings, assignGod, startGame } from '../gameService';
 
@@ -33,8 +33,8 @@ const Lobby = ({ room, error }) => {
     await startGame(room.id, room.settings, room.players, room.god_id);
   };
 
-  const { mafias, villagers, doctors, detectives } = room.settings;
-  const totalRoles = mafias + villagers + doctors + detectives;
+  const { mafias = 1, villagers = 3, doctors = 0, detectives = 0, jokers = 0, divas = 0, dons = 0 } = room.settings;
+  const totalRoles = mafias + villagers + doctors + detectives + jokers + divas + dons;
   const activePlayersCount = room.players.filter(p => !p.is_god).length;
   const canStart = isHost && activePlayersCount === totalRoles;
 
@@ -77,6 +77,9 @@ const Lobby = ({ room, error }) => {
             <RoleControl label="Villager" icon={Users} count={villagers} onUpdate={(val) => handleUpdateSetting('villagers', val)} isHost={isHost} />
             <RoleControl label="Doctor" icon={Shield} count={doctors} onUpdate={(val) => handleUpdateSetting('doctors', val)} isHost={isHost} />
             <RoleControl label="Detective" icon={Search} count={detectives} onUpdate={(val) => handleUpdateSetting('detectives', val)} isHost={isHost} />
+            <RoleControl label="Joker" icon={Smile} count={jokers} onUpdate={(val) => handleUpdateSetting('jokers', val)} isHost={isHost} />
+            <RoleControl label="Diva" icon={Sparkles} count={divas} onUpdate={(val) => handleUpdateSetting('divas', val)} isHost={isHost} />
+            <RoleControl label="Don" icon={Briefcase} count={dons} onUpdate={(val) => handleUpdateSetting('dons', val)} isHost={isHost} />
           </div>
 
           <div style={{ marginTop: '20px', padding: '15px', borderRadius: '8px', background: activePlayersCount === totalRoles ? 'rgba(76, 209, 55, 0.1)' : 'rgba(255, 255, 255, 0.05)', textAlign: 'center' }}>
